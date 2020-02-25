@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="uq_email", columns={"email"})})
  * @ORM\Entity
  */
-class User
+class User implements \JsonSerializable
 {
     /**
      * @var int
@@ -160,5 +160,14 @@ class User
         return $this->videos;
     }
 
-
+    public function jsonSerialize()
+    {
+        // TODO: Implement jsonSerialize() method
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'surname' => $this->surnamen,
+            'email' => $this->email,
+        ];
+    }
 }
