@@ -3,6 +3,7 @@ namespace App\Services;
 
 use Firebase\JWT\JWT;
 use App\Entity\User;
+use http\Env\Request;
 
 class JwtAuth{
 
@@ -57,4 +58,24 @@ class JwtAuth{
         //devolver datos
         return $data;
     }
+
+    public function checktoken($jwt){
+        $auth = false;
+
+        try {
+            $decoded = JWT::decode($jwt, $this->key, ['HS256']);
+        }catch (\UnexpectedValueException $e){
+            $auth = false;
+        }catch (\DomainException $e){
+            $auth = false;
+        }
+
+        if(isset($decoded) && !empty($decoded) && is_object($decoded) && isset($decoded->sub)){
+            $auth = true;
+        }else{
+            $auth = false;
+        }
+        return $auth;
+    }
+
 }
