@@ -189,10 +189,12 @@ class UserController extends AbstractController
         $authCheck = $jwtAuth->checktoken($token);
 
         //si el jwt es correcto hacer la actualizaciob user
-        if($jwtAuth){
+        if($authCheck){
             //actualizar usuario
             //conseguir entity manager
+            $em = $this->getDoctrine()->getManager();
             //conseguir los datos del usuario autentificado
+            $identity = $jwtAuth->checktoken($token, true);
             //conseguir el usuario a actualizar completo
             //recoger los datos por POST
             //comprobar y validar datos
