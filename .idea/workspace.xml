@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7d8bbccc-0b1b-433d-b23b-449ad0b03100" name="Default Changelist" comment="">
+    <list default="true" id="7d8bbccc-0b1b-433d-b23b-449ad0b03100" name="Default Changelist" comment="terminado el metodo de checktoken, se paso un flag de decodificacion">
+      <change beforePath="$PROJECT_DIR$/.idea/api-rest-simfony.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/api-rest-simfony.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/JwtAuth.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/JwtAuth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +87,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
       <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
       <path value="$PROJECT_DIR$/vendor/symfony/inflector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
     </include_path>
   </component>
   <component name="ProjectId" id="1Y63UuKfUXwwKjPaB5OCeyqqBGv" />
@@ -102,6 +109,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager">
     <configuration name="UserController.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/src/Controller/UserController.php">
@@ -127,10 +135,22 @@
       <workItem from="1582590124778" duration="10311000" />
       <workItem from="1582660318411" duration="9525000" />
     </task>
+    <task id="LOCAL-00001" summary="terminado el metodo de checktoken, se paso un flag de decodificacion">
+      <created>1582732869947</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582732869947</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="terminado el metodo de checktoken, se paso un flag de decodificacion" />
+    <option name="LAST_COMMIT_MESSAGE" value="terminado el metodo de checktoken, se paso un flag de decodificacion" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2322" y="52" key="#UserController.php" timestamp="1582732648918">
@@ -149,17 +169,33 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1582686538285" />
-    <state x="2228" y="0" key="CommitChangelistDialog2" timestamp="1582732601512">
+    <state x="2344" y="0" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0" timestamp="1582754474005">
       <screen x="1920" y="0" width="1366" height="728" />
     </state>
-    <state x="2228" y="0" key="CommitChangelistDialog2/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582732601512" />
-    <state x="2195" y="97" key="Vcs.Push.Dialog.v2" timestamp="1582732547818">
+    <state x="2344" y="0" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582754474005" />
+    <state x="2228" y="0" key="CommitChangelistDialog2" timestamp="1582754979915">
       <screen x="1920" y="0" width="1366" height="728" />
     </state>
-    <state x="2195" y="97" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582732547818" />
+    <state x="2228" y="0" key="CommitChangelistDialog2/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582754979915" />
+    <state x="2104" y="6" key="SettingsEditor" timestamp="1582754647800">
+      <screen x="1920" y="0" width="1366" height="728" />
+    </state>
+    <state x="2104" y="6" key="SettingsEditor/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582754647800" />
+    <state x="2450" y="280" key="VCS.ChangelistChooser" timestamp="1582754483434">
+      <screen x="1920" y="0" width="1366" height="728" />
+    </state>
+    <state x="2450" y="280" key="VCS.ChangelistChooser/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582754483434" />
+    <state x="2195" y="97" key="Vcs.Push.Dialog.v2" timestamp="1582754566466">
+      <screen x="1920" y="0" width="1366" height="728" />
+    </state>
+    <state x="2195" y="97" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582754566466" />
     <state x="378" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1582590137064">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="378" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1582590137064" />
+    <state x="2318" y="155" key="git4idea.merge.GitPullDialog" timestamp="1582755015830">
+      <screen x="1920" y="0" width="1366" height="728" />
+    </state>
+    <state x="2318" y="155" key="git4idea.merge.GitPullDialog/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582755015830" />
   </component>
 </project>

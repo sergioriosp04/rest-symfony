@@ -227,6 +227,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.14.0"
     },
+    "symfony/polyfill-php72": {
+        "version": "v1.14.0"
+    },
     "symfony/property-access": {
         "version": "v4.2.12"
     },
@@ -275,6 +278,9 @@
             "./config/packages/test/validator.yaml",
             "./config/packages/validator.yaml"
         ]
+    },
+    "symfony/var-dumper": {
+        "version": "v4.2.12"
     },
     "symfony/var-exporter": {
         "version": "v4.2.12"

@@ -16,11 +16,12 @@ use App\Services\JwtAuth;
 
 class UserController extends AbstractController
 {
-    private function resjson($data){
+    private function resjson($data)
+    {
         //serializar datos con servicio de serializer
+        $response = new Response();
         $json = $this->get('serializer')->serialize($data, 'json');
         // response con http foundation
-        $response = new Response();
         //asignar contenido a la respuesta
         $response->setContent($json);
         // indicar formato de respuesta
@@ -49,14 +50,15 @@ class UserController extends AbstractController
         }
         die();*/
 
-        $data=[
-            'message'=> 'Welcome to your new controller!',
+        $data = [
+            'message' => 'Welcome to your new controller!',
             'path' => 'src/Controller/UserController.php',
         ];
         return $this->resjson($videos);
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         //recoger los datos por post
         $json = $request->get('json', null);
         $params = json_decode($json);
@@ -71,18 +73,18 @@ class UserController extends AbstractController
         ];
 
         //comprobar y validar datos
-        if(!empty($json)){
-            $name = (!empty($params->name))? $params->name : null;
-            $surname = (!empty($params->surname))? $params->surname : null;
-            $email = (!empty($params->email))? $params->email : null;
-            $password = (!empty($params->password))? $params->password : null;
+        if (!empty($json)) {
+            $name = (!empty($params->name)) ? $params->name : null;
+            $surname = (!empty($params->surname)) ? $params->surname : null;
+            $email = (!empty($params->email)) ? $params->email : null;
+            $password = (!empty($params->password)) ? $params->password : null;
 
             $validator = Validation::createValidator();
             $validate_email = $validator->validate($email, [
                 new Email()
             ]);
 
-            if(!empty($email) && !empty($password) && !empty($name) && count($validate_email ) == 0){
+            if (!empty($email) && !empty($password) && !empty($name) && count($validate_email) == 0) {
                 // si la validacion es correcta, crear el objeto del usuario
                 $user = new User();
                 $user->setName($name);
@@ -104,7 +106,7 @@ class UserController extends AbstractController
                     'email' => $email
                 ));
                 // si no existe, guardar en la db
-                if(count($isset_user) == 0){
+                if (count($isset_user) == 0) {
                     //guardar usuario
                     $em->persist($user);
                     $em->flush();
@@ -114,7 +116,7 @@ class UserController extends AbstractController
                         'message' => 'Usuario guardado con exito',
                         'user' => $user
                     ];
-                }else{
+                } else {
                     $data = [
                         'status' => 'error',
                         'code' => 400,
@@ -122,14 +124,14 @@ class UserController extends AbstractController
                     ];
                 }
 
-            }else{
+            } else {
                 $data = [
                     'status' => 'error',
                     'code' => 400,
                     'message' => 'Usuario no se ha creado',
                 ];
             }
-        }else{
+        } else {
             $data = [
                 'status' => 'error',
                 'code' => 400,
@@ -142,38 +144,39 @@ class UserController extends AbstractController
         return new JsonResponse($data);
     }
 
-    public function login(Request $request, JwtAuth $jwtAuth){
+    public function login(Request $request, JwtAuth $jwtAuth)
+    {
         // recibir los datos por post
         $json = $request->get('json', null);
         $params = json_decode($json);
 
         //comprobar y validar datos
-        if(!is_null($json)){
-            $email = (!empty($params->email))? $params->email : null;
-            $password = (!empty($params->password))? $params->password : null;
-            $gettoken = (!empty($params->gettoken))? $params->gettoken : null;
+        if (!is_null($json)) {
+            $email = (!empty($params->email)) ? $params->email : null;
+            $password = (!empty($params->password)) ? $params->password : null;
+            $gettoken = (!empty($params->gettoken)) ? $params->gettoken : null;
 
             $validator = Validation::createValidator();
             $validate_email = $validator->validate($email, [
                 new Email()
             ]);
 
-            if(!empty($email) && !empty($password) && count($validate_email) == 0){
-            //cifrar contraseña
+            if (!empty($email) && !empty($password) && count($validate_email) == 0) {
+                //cifrar contraseña
                 $pwd = hash('sha256', $password);
 
-            //llamada servicio para identificar al usuario jwt
-                if($gettoken){
+                //llamada servicio para identificar al usuario jwt
+                if ($gettoken) {
                     $signup = $jwtAuth->signup($email, $pwd, $gettoken);
-                }else{
+                } else {
                     $signup = $jwtAuth->signup($email, $pwd);
                 }
 
                 return new JsonResponse($signup);
             }
-        }else{
+        } else {
             $data = [
-                'status'=> 'error',
+                'status' => 'error',
                 'code' => 400,
                 'message' => 'el usuario no se ha podido identificar2'
             ];
@@ -181,37 +184,82 @@ class UserController extends AbstractController
 
         return $this->resjson($data);
     }
-    public function edit(Request $request, JwtAuth $jwtAuth){
+
+    public function edit(Request $request, JwtAuth $jwtAuth)
+    {
         //recoger cabecera de authentification
         $token = $request->headers->get('Authorization');
 
         //crear metodo para comprobar si el token es correcto
         $authCheck = $jwtAuth->checktoken($token);
 
-        //si el jwt es correcto hacer la actualizaciob user
-        if($authCheck){
-            //actualizar usuario
-            //conseguir entity manager
-            $em = $this->getDoctrine()->getManager();
-            //conseguir los datos del usuario autentificado
-            $identity = $jwtAuth->checktoken($token, true);
-            //conseguir el usuario a actualizar completo
-            //recoger los datos por POST
-            //comprobar y validar datos
-            //asignar nuevos datos al objeto del usuario
-            //comprobar duplicados
-            //guardar cambios en la db
-        }else{
-
-        }
-
-        //...
+        //respuesta por defecto
         $data = [
             'status' => 'error',
             'code' => 400,
-            'message' => 'error en el update del user',
-            'token' => $token
+            'message' => 'no se enviaron datos a actualizar',
         ];
-        return $this->resjson($data);
+
+        //si el jwt es correcto hacer la actualizaciob user
+        if ($authCheck) {
+            //actualizar usuario
+            //conseguir entity manager
+            $em = $this->getDoctrine()->getManager();
+            $user_repo = $this->getDoctrine()->getRepository(User::class);
+            //conseguir los datos del usuario autentificado
+            $identity = $jwtAuth->checktoken($token, true);
+            //conseguir el usuario a actualizar completo
+            $user = $user_repo->findOneBy([
+                'id' => $identity->sub
+            ]);
+            //recoger los datos por POST
+            $json = $request->get('json', null);
+            $params = json_decode($json);
+            //comprobar y validar datos
+            if (!empty($json)) {
+                $name = (!empty($params->name)) ? $params->name : null;
+                $surname = (!empty($params->surname)) ? $params->surname : null;
+                $email = (!empty($params->email)) ? $params->email : null;
+
+                $validator = Validation::createValidator();
+                $validate_email = $validator->validate($email, [
+                    new Email()
+                ]);
+                if (!empty($email) && !empty($name) && count($validate_email) == 0) {
+                    //asignar nuevos datos al objeto del usuario
+                    $user->setEmail($email);
+                    $user->setName($name);
+                    $user->setSurnamen($surname);
+                    if ($identity->email == $email) {
+                        //si el email que llega por post igual al que esa identificado
+                        //guardar cambios
+                        $em->persist($user);
+                        $em->flush();
+                        $data = [
+                            'status' => 'success',
+                            'code' => 200,
+                            'message' => 'Usuario editado correctamente',
+                            'user' => $user
+                        ];
+                    } else {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'el email noe  sposible cambiarlo',
+                        ];
+                    }
+                }
+            }
+        } else {
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'el ususario no se identifico correctamente',
+            ];
+        }
+
+        //...
+
+        return $this->JsonResponse($data);
     }
 }
