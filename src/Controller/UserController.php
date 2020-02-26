@@ -9,8 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints\Email;
+
 use App\Entity\User;
 use App\Entity\Video;
+use App\Services\JwtAuth;
 
 class UserController extends AbstractController
 {
@@ -70,10 +72,10 @@ class UserController extends AbstractController
 
         //comprobar y validar datos
         if(!empty($json)){
-            $name = (!empty($params))? $params->name : null;
-            $surname = (!empty($params))? $params->surname : null;
-            $email = (!empty($params))? $params->email : null;
-            $password = (!empty($params))? $params->password : null;
+            $name = (!empty($params->name))? $params->name : null;
+            $surname = (!empty($params->surname))? $params->surname : null;
+            $email = (!empty($params->email))? $params->email : null;
+            $password = (!empty($params->password))? $params->password : null;
 
             $validator = Validation::createValidator();
             $validate_email = $validator->validate($email, [
@@ -120,7 +122,6 @@ class UserController extends AbstractController
                     ];
                 }
 
-
             }else{
                 $data = [
                     'status' => 'error',
@@ -136,10 +137,49 @@ class UserController extends AbstractController
             ];
         }
 
-
         // hacer respuesta en json
         //return $this->resjson($data);
         return new JsonResponse($data);
+    }
+
+    public function login(Request $request, JwtAuth $jwtAuth){
+        // recibir los datos por post
+        $json = $request->get('json', null);
+        $params = json_decode($json);
+
+        //comprobar y validar datos
+        if(!is_null($json)){
+            $email = (!empty($params->email))? $params->email : null;
+            $password = (!empty($params->password))? $params->password : null;
+            $gettoken = (!empty($params->gettoken))? $params->gettoken : null;
+
+            $validator = Validation::createValidator();
+            $validate_email = $validator->validate($email, [
+                new Email()
+            ]);
+
+            if(!empty($email) && !empty($password) && count($validate_email) == 0){
+            //cifrar contraseña
+                $pwd = hash('sha256', $password);
+
+            //llamada servicio para identificar al usuario jwt
+                if($gettoken){
+                    $signup = $jwtAuth->signup($email, $pwd, $gettoken);
+                }else{
+                    $signup = $jwtAuth->signup($email, $pwd);
+                }
+
+                return new JsonResponse($signup);
+            }
+        }else{
+            $data = [
+                'status'=> 'error',
+                'code' => 400,
+                'message' => 'el usuario no se ha podido identificar2'
+            ];
+        }
+
+        return $this->resjson($data);
 
     }
 }
