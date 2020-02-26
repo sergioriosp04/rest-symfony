@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use PhpParser\Node\Expr\New_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints\Email;
 use App\Entity\User;
 use App\Entity\Video;
 
@@ -48,5 +52,94 @@ class UserController extends AbstractController
             'path' => 'src/Controller/UserController.php',
         ];
         return $this->resjson($videos);
+    }
+
+    public function register(Request $request){
+        //recoger los datos por post
+        $json = $request->get('json', null);
+        $params = json_decode($json);
+
+        //decodificar el json
+        //respuesta por defecto
+        $data = [
+            'status' => 'error',
+            'code' => 400,
+            'message' => 'Usuario no se ha creado',
+            'params' => $params
+        ];
+
+        //comprobar y validar datos
+        if(!empty($json)){
+            $name = (!empty($params))? $params->name : null;
+            $surname = (!empty($params))? $params->surname : null;
+            $email = (!empty($params))? $params->email : null;
+            $password = (!empty($params))? $params->password : null;
+
+            $validator = Validation::createValidator();
+            $validate_email = $validator->validate($email, [
+                new Email()
+            ]);
+
+            if(!empty($email) && !empty($password) && !empty($name) && count($validate_email ) == 0){
+                // si la validacion es correcta, crear el objeto del usuario
+                $user = new User();
+                $user->setName($name);
+                $user->setEmail($email);
+                $user->setSurnamen($surname);
+                $user->setRole('ROLE_USER');
+                $user->setCreatedAt(new \DateTime('now'));
+                //cifrar contraseña
+                $pwd = hash('sha256', $password);
+                $user->setPassword($pwd);
+                $data = $user;
+
+                //comprobar si el usuario existe(duplicado)
+                $doctrine = $this->getDoctrine();
+                $em = $doctrine->getManager();
+
+                $user_repo = $doctrine->getRepository(User::class);
+                $isset_user = $user_repo->findBy(array(
+                    'email' => $email
+                ));
+                // si no existe, guardar en la db
+                if(count($isset_user) == 0){
+                    //guardar usuario
+                    $em->persist($user);
+                    $em->flush();
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Usuario guardado con exito',
+                        'user' => $user
+                    ];
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'Usuario ya existe',
+                    ];
+                }
+
+
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'Usuario no se ha creado',
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Usuario no se ha creado',
+            ];
+        }
+
+
+        // hacer respuesta en json
+        //return $this->resjson($data);
+        return new JsonResponse($data);
+
     }
 }
