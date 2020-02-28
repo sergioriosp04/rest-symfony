@@ -4,7 +4,6 @@
     <list default="true" id="7d8bbccc-0b1b-433d-b23b-449ad0b03100" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/VideoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/VideoController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,7 +133,7 @@
       <workItem from="1582905477641" duration="2018000" />
       <workItem from="1582907752359" duration="227000" />
       <workItem from="1582907993376" duration="3685000" />
-      <workItem from="1582922273507" duration="2153000" />
+      <workItem from="1582922273507" duration="3607000" />
     </task>
     <task id="LOCAL-00001" summary="terminado el metodo de checktoken, se paso un flag de decodificacion">
       <created>1582732869947</created>
@@ -157,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582755518073</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="terminado el metodod de guardar videos">
+      <created>1582927141352</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1582927141352</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,7 +173,8 @@
     <MESSAGE value="terminado el metodo de checktoken, se paso un flag de decodificacion" />
     <MESSAGE value="terminado el metodo editar usuarios" />
     <MESSAGE value="ensayo de commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="ensayo de commit" />
+    <MESSAGE value="terminado el metodod de guardar videos" />
+    <option name="LAST_COMMIT_MESSAGE" value="terminado el metodod de guardar videos" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2322" y="52" key="#UserController.php" timestamp="1582732648918">
@@ -190,10 +197,10 @@
       <screen x="1920" y="0" width="1366" height="728" />
     </state>
     <state x="2344" y="0" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582754474005" />
-    <state x="2228" y="0" key="CommitChangelistDialog2" timestamp="1582927117848">
+    <state x="2228" y="0" key="CommitChangelistDialog2" timestamp="1582927140030">
       <screen x="1920" y="0" width="1366" height="728" />
     </state>
-    <state x="2228" y="0" key="CommitChangelistDialog2/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582927117848" />
+    <state x="2228" y="0" key="CommitChangelistDialog2/0.0.1280.680/1920.0.1366.728@1920.0.1366.728" timestamp="1582927140030" />
     <state x="2104" y="6" key="SettingsEditor" timestamp="1582754647800">
       <screen x="1920" y="0" width="1366" height="728" />
     </state>

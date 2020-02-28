@@ -103,6 +103,31 @@ class VideoController extends AbstractController
     }
 
     public function videos(Request $request, JwtAuth $jwtAuth){
+        // recoger la cabecer de autentificacion
+        $token = $request->headers->get('Authorization', null);
+        //comprobar el token
+        $authCheck = $jwtAuth->checktoken($token);
+        if($authCheck){
+        //si es valido ,
+            $identity = $jwtAuth->checktoken($token, true);
+        //conseguir identidad usuario
+        //configurar el bundle de paginacion
+        //consulta para paginar//recoger el parametro page de la url
+        //invocar paginacion
+        //preparar array de datos para retornar
+            $data=[
+                'status'=> 'success',
+                'code' => 200,
+                'message' => 'usuario correcot'
+            ];
+        }else{
+            $data=[
+                'status'=> 'error',
+                'code' => 404,
+                'message' => 'El usuario no esta autentificado'
+            ];
+        }
 
+        return $this->resjson($data);
     }
 }
