@@ -245,7 +245,7 @@ class UserController extends AbstractController
                         $data = [
                             'status' => 'error',
                             'code' => 400,
-                            'message' => 'el email noe  sposible cambiarlo',
+                            'message' => 'el email no es posible cambiarlo',
                         ];
                     }
                 }
