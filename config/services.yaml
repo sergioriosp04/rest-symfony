@@ -27,3 +27,4 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Services\JwtAuth: ['@doctrine.orm.entity_manager']
+

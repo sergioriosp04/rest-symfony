@@ -54,7 +54,7 @@ class UserController extends AbstractController
             'message' => 'Welcome to your new controller!',
             'path' => 'src/Controller/UserController.php',
         ];
-        return $this->resjson($videos);
+        return $this->resjson($users);
     }
 
     public function register(Request $request)
@@ -129,6 +129,7 @@ class UserController extends AbstractController
                     'status' => 'error',
                     'code' => 400,
                     'message' => 'Usuario no se ha creado',
+                    'message 2' => $validator
                 ];
             }
         } else {
